@@ -44,14 +44,6 @@ CREATE TABLE sightings (
     notes TEXT
 );
 
-DROP TABLE rangers;
-DROP TABLE species;
-DROP TABLE sightings;
-
-SELECT * FROM rangers;
-SELECT * FROM species;
-SELECT * FROM sightings;
-
 --INSERT DATA sightings TABLE
 INSERT INTO sightings(species_id,ranger_id, location, sighting_time, notes) VALUES
 (1,1, 'Peak Ridge', '2024-05-10 07:45:00', 'Camera trap image captured'),
@@ -83,3 +75,26 @@ FROM species
 WHERE species_id NOT IN (
     SELECT species_id FROM sightings
 );
+
+
+SELECT * FROM rangers;
+SELECT * FROM species;
+SELECT * FROM sightings;
+
+--Problem #6 Solve
+SELECT sp.common_name, si.sighting_time, rg.name   
+FROM sightings si
+JOIN species sp ON si.species_id = sp.species_id 
+JOIN rangers rg ON si.ranger_id = rg.ranger_id 
+ORDER BY si.sighting_time DESC LIMIT 2;
+
+--Problem #9 Solve
+DELETE FROM rangers 
+    WHERE ranger_id NOT IN (
+        SELECT ranger_id FROM sightings
+    );
+
+
+DROP TABLE rangers;
+DROP TABLE species;
+DROP TABLE sightings;
