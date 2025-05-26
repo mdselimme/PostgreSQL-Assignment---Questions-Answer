@@ -73,6 +73,13 @@ SELECT * FROM sightings WHERE location ILIKE '%Pass%';
 --Problem #4 Solve
 SELECT rangers.name, COUNT(sightings.ranger_id) total_sightings 
 FROM sightings
-INNER JOIN rangers
+JOIN rangers
 ON sightings.ranger_id = rangers.ranger_id
 GROUP BY name ORDER BY name;
+
+--Problme #5 Solve
+SELECT common_name
+FROM species
+WHERE species_id NOT IN (
+    SELECT species_id FROM sightings
+);
