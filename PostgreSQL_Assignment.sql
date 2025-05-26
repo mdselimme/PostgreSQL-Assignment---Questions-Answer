@@ -31,8 +31,8 @@ INSERT INTO species (common_name, scientific_name, discovery_date, conservation_
 ('Show Leopard', 'Panthera uncia', '1775-01-01', 'Endangered'),
 ('Bengal Tiger', 'Panthera tigris tigris', '1758-01-01', 'Endangered'),
 ('Red Panda', 'Ailurus fulgens', '1825-01-01', 'Vulnerable'),
-('Asiatic Elephant', 'Elephas maximus indicus', '1758-01-01', 'Endangered'),
-('Blue Whale', 'Balaenoptera musculus', '1758-01-01', 'Endangered');
+('Asiatic Elephant', 'Elephas maximus indicus', '1758-01-01', 'Endangered');
+-- ('Blue Whale', 'Balaenoptera musculus', '1758-01-01', 'Endangered');
 
 --CREATE sightings TABLE
 CREATE TABLE sightings (
@@ -63,3 +63,8 @@ INSERT INTO sightings(ranger_id, species_id,location, sighting_time, notes) VALU
 INSERT INTO rangers(name, region) VALUES 
 ('Derek Fox', 'Coastal Plains');
 
+--Problem #2 Solve
+
+
+--Problem #3 Solve
+SELECT * FROM sightings WHERE location ILIKE '%Pass%';
