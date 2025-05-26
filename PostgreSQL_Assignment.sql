@@ -37,8 +37,8 @@ INSERT INTO species (common_name, scientific_name, discovery_date, conservation_
 --CREATE sightings TABLE
 CREATE TABLE sightings (
     sighting_id SERIAL PRIMARY KEY NOT NULL,
-    ranger_id INTEGER REFERENCES rangers(ranger_id),
     species_id INTEGER REFERENCES species(species_id),
+    ranger_id INTEGER REFERENCES rangers(ranger_id),
     location TEXT NOT NULL,
     sighting_time TIMESTAMP NOT NULL,
     notes TEXT
@@ -53,7 +53,7 @@ SELECT * FROM species;
 SELECT * FROM sightings;
 
 --INSERT DATA sightings TABLE
-INSERT INTO sightings(ranger_id, species_id,location, sighting_time, notes) VALUES
+INSERT INTO sightings(species_id,ranger_id, location, sighting_time, notes) VALUES
 (1,1, 'Peak Ridge', '2024-05-10 07:45:00', 'Camera trap image captured'),
 (2,2, 'Bankwood Area', '2024-05-12 16:20:00', 'Juvenile seen'),
 (3,3, 'Bamboo Grove East', '2024-05-15 09:10:00', 'Feeding observed'),
@@ -68,3 +68,11 @@ INSERT INTO rangers(name, region) VALUES
 
 --Problem #3 Solve
 SELECT * FROM sightings WHERE location ILIKE '%Pass%';
+
+
+--Problem #4 Solve
+SELECT rangers.name, COUNT(sightings.ranger_id) total_sightings 
+FROM sightings
+INNER JOIN rangers
+ON sightings.ranger_id = rangers.ranger_id
+GROUP BY name ORDER BY name;
