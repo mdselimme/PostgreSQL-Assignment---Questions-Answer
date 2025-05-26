@@ -32,7 +32,7 @@ INSERT INTO species (common_name, scientific_name, discovery_date, conservation_
 ('Bengal Tiger', 'Panthera tigris tigris', '1758-01-01', 'Endangered'),
 ('Red Panda', 'Ailurus fulgens', '1825-01-01', 'Vulnerable'),
 ('Asiatic Elephant', 'Elephas maximus indicus', '1758-01-01', 'Endangered');
--- ('Blue Whale', 'Balaenoptera musculus', '1758-01-01', 'Endangered');
+
 
 --CREATE sightings TABLE
 CREATE TABLE sightings (
@@ -77,16 +77,27 @@ WHERE species_id NOT IN (
 );
 
 
-SELECT * FROM rangers;
-SELECT * FROM species;
-SELECT * FROM sightings;
-
 --Problem #6 Solve
 SELECT sp.common_name, si.sighting_time, rg.name   
 FROM sightings si
 JOIN species sp ON si.species_id = sp.species_id 
 JOIN rangers rg ON si.ranger_id = rg.ranger_id 
 ORDER BY si.sighting_time DESC LIMIT 2;
+
+--Problem #7 Solve
+-- For previous logic I have to drop this table and re add check CONSTRAINT with Historic method 
+-- drop column constraint
+ALTER TABLE species DROP CONSTRAINT species_conservation_status_check;
+
+-- add check method again with 'Historic' status  
+ALTER TABLE species
+ADD CONSTRAINT species_conservation_status_check
+CHECK (conservation_status IN ('Endangered', 'Vulnerable', 'Historic'));
+
+-- Update with logic 
+UPDATE species
+SET conservation_status = 'Historic'
+WHERE discovery_date < '1800-01-01';
 
 --Problem #8 Solve
 SELECT 
@@ -105,8 +116,3 @@ DELETE FROM rangers
     WHERE ranger_id NOT IN (
         SELECT ranger_id FROM sightings
     );
-
-
-DROP TABLE rangers;
-DROP TABLE species;
-DROP TABLE sightings;
