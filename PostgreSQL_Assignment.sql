@@ -1,4 +1,7 @@
 
+--CREATE DATABASE
+CREATE DATABASE conservation_db;
+
 -- CREATE rangers TABLE
 CREATE TABLE rangers (
     ranger_id SERIAL PRIMARY KEY,
@@ -41,7 +44,7 @@ CREATE TABLE sightings (
     notes TEXT
 );
 
-DROP TABLE sightings;
+DROP TABLE rangers;
 DROP TABLE species;
 DROP TABLE sightings;
 
@@ -55,3 +58,8 @@ INSERT INTO sightings(ranger_id, species_id,location, sighting_time, notes) VALU
 (2,2, 'Bankwood Area', '2024-05-12 16:20:00', 'Juvenile seen'),
 (3,3, 'Bamboo Grove East', '2024-05-15 09:10:00', 'Feeding observed'),
 (1,2, 'Snowfall Pass', '2024-05-18 18:30:00', NULL);
+
+--Problem #1 Solve
+INSERT INTO rangers(name, region) VALUES 
+('Derek Fox', 'Coastal Plains');
+
