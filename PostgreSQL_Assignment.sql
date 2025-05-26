@@ -88,6 +88,18 @@ JOIN species sp ON si.species_id = sp.species_id
 JOIN rangers rg ON si.ranger_id = rg.ranger_id 
 ORDER BY si.sighting_time DESC LIMIT 2;
 
+--Problem #8 Solve
+SELECT 
+    sighting_id,
+CASE
+    WHEN EXTRACT(HOUR FROM sighting_time) < 12 THEN 'Morning'
+    WHEN EXTRACT(HOUR FROM sighting_time) < 17 THEN 'Afternoon'
+ELSE 
+    'Evening'
+END AS time_of_day
+FROM sightings;
+
+
 --Problem #9 Solve
 DELETE FROM rangers 
     WHERE ranger_id NOT IN (
